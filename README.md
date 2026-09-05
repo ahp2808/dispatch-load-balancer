@@ -1,6 +1,6 @@
 # Dispatch Load Balancer
 
-A Spring Boot service that assigns delivery orders to a fleet of vehicles based on vehicle capacity limits, priority levels, and travel distance minimization using the Haversine formula.
+A Spring Boot application that assigns delivery orders to a fleet of vehicles based on vehicle capacity limits, priority levels, and travel distance minimization using the Haversine formula.
 
 ---
 
@@ -236,18 +236,3 @@ Several helper scripts are included for testing different scenarios against a ru
   ```powershell
   .\load_large_dataset.ps1 -VehicleCount 50 -OrderCount 300
   ```
-
-### Postman Collection
-A ready-to-import Postman collection is located at:
-[`postman/Dispatch_Load_Balancer.postman_collection.json`](postman/Dispatch_Load_Balancer.postman_collection.json)
-
-It includes requests for batch ingestion, plan generation, single-resource CRUD, and negative validation tests.
-
----
-
-## CI/CD Pipeline
-
-A GitHub Actions workflow is configured in [`.github/workflows/ci.yml`](.github/workflows/ci.yml):
-- Runs `./mvnw clean test` on every push and pull request to `main`.
-- Generates JaCoCo test coverage reports.
-- Builds the packaged Spring Boot JAR.
