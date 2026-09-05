@@ -1,0 +1,284 @@
+{
+  "info": {
+    "name": "Dispatch Load Balancer",
+    "description": "Postman Collection for Dispatch Load Balancer REST API with vehicle/order ingestion, plan generation, resource management, and validation tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Core Dispatch",
+      "item": [
+        {
+          "name": "Submit Vehicles",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"vehicle-1\",\n      \"capacity\": 100,\n      \"currentLatitude\": 28.6517,\n      \"currentLongitude\": 77.1906,\n      \"currentAddress\": \"Central Depot, Hub North\"\n    },\n    {\n      \"vehicleId\": \"vehicle-2\",\n      \"capacity\": 120,\n      \"currentLatitude\": 28.5708,\n      \"currentLongitude\": 77.3260,\n      \"currentAddress\": \"Logistics Center, Hub East\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Submit Orders",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"orderId\": \"order-1\",\n      \"latitude\": 28.6510,\n      \"longitude\": 77.1900,\n      \"address\": \"Delivery Point A\",\n      \"packageWeight\": 25,\n      \"priority\": \"HIGH\"\n    },\n    {\n      \"orderId\": \"order-2\",\n      \"latitude\": 28.6320,\n      \"longitude\": 77.2180,\n      \"address\": \"Delivery Point B\",\n      \"packageWeight\": 30,\n      \"priority\": \"MEDIUM\"\n    },\n    {\n      \"orderId\": \"order-3\",\n      \"latitude\": 28.5700,\n      \"longitude\": 77.3250,\n      \"address\": \"Delivery Point C\",\n      \"packageWeight\": 20,\n      \"priority\": \"LOW\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Dispatch Plan",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/plan",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "plan"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders/order-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders", "order-1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Order by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders/order-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders", "order-1"]
+            }
+          }
+        },
+        {
+          "name": "Clear All Orders",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "List Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Get Vehicle by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles/vehicle-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles", "vehicle-1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Vehicle by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles/vehicle-1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles", "vehicle-1"]
+            }
+          }
+        },
+        {
+          "name": "Clear All Vehicles",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation & Errors",
+      "item": [
+        {
+          "name": "Unsupported Media Type (415)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "text/plain" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "plain-text-payload"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Order Not Found (404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders/nonexistent-order",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders", "nonexistent-order"]
+            }
+          }
+        },
+        {
+          "name": "Invalid Priority (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"orderId\": \"order-invalid\",\n      \"latitude\": 28.6510,\n      \"longitude\": 77.1900,\n      \"address\": \"Sample Location\",\n      \"packageWeight\": 25,\n      \"priority\": \"URGENT\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Negative Capacity (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicles\": [\n    {\n      \"vehicleId\": \"vehicle-invalid\",\n      \"capacity\": -50,\n      \"currentLatitude\": 28.6517,\n      \"currentLongitude\": 77.1906,\n      \"currentAddress\": \"Central Depot\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/vehicles",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "vehicles"]
+            }
+          }
+        },
+        {
+          "name": "Out of Range Latitude (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"orderId\": \"order-invalid-lat\",\n      \"latitude\": 95.5,\n      \"longitude\": 77.1900,\n      \"address\": \"Out of Range Latitude\",\n      \"packageWeight\": 10,\n      \"priority\": \"HIGH\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dispatch/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dispatch", "orders"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
