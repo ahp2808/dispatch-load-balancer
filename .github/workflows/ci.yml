@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    name: Build, Test & Verify Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Set Execution Permissions on Maven Wrapper
+        run: chmod +x ./mvnw
+
+      - name: Run Automated Test Suite & JaCoCo Coverage
+        run: ./mvnw clean test
+
+      - name: Package Spring Boot Application JAR
+        run: ./mvnw package -DskipTests
+
+      - name: Upload JaCoCo Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-coverage-report
+          path: target/site/jacoco/
+          retention-days: 14
+
+      - name: Upload Surefire Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-test-results
+          path: target/surefire-reports/
+          retention-days: 14
+
+      - name: Upload Application JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dispatch-load-balancer-app
+          path: target/*.jar
+          retention-days: 7
